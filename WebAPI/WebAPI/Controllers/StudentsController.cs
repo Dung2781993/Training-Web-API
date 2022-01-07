@@ -17,7 +17,7 @@ namespace WebAPI.Controllers
     public class StudentsController : ApiController
     {
         private StudentRepository _studentRepository = new StudentRepository();      
-
+		//This is get request
         // Get api/students
         [HttpGet]
         public IHttpActionResult GetStudents()
@@ -27,7 +27,19 @@ namespace WebAPI.Controllers
             {
                 return NotFound();
             }
-            return Ok(new { results = students });
+            return Ok(students);
+        }
+
+        [HttpGet]
+        // Get api/students/id
+        public IHttpActionResult GetStudentById(int id)
+        {
+            var student = _studentRepository.SelectById(id);
+            if(student == null)
+            {
+                return NotFound();
+            }
+            return Ok(student);
         }
     }
 }
